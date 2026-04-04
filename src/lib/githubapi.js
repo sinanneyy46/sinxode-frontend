@@ -4,7 +4,7 @@
  * - Prod: prefers Django API URL from env/fallback (use GITHUB_TOKEN on the server).
  * - Fallback: direct `https://api.github.com` with VITE_GITHUB_TOKEN (often blocked by CORS in browser).
  */
-import { API_HEADERS, buildApiUrl } from '../utils/api'
+import { apiFetchJson } from '../utils/api'
 
 const USER = 'sinanneyy46'
 
@@ -23,17 +23,32 @@ function pickPushPayload(events) {
   }
 }
 
+async function safeArrayResponse(response) {
+  if (!response || response.status === 204) return []
+  const body = await response.text()
+  if (!body.trim()) return []
+  try {
+    const parsed = JSON.parse(body)
+    return Array.isArray(parsed) ? parsed : []
+  } catch {
+    return []
+  }
+}
+
 export async function fetchLatestGitHubSignal() {
   const dev = import.meta.env.DEV
   const viteToken = import.meta.env.VITE_GITHUB_TOKEN
 
   const tryDjango = async () => {
-    const r = await fetch(buildApiUrl('/api/github/feed/'), {
-      mode: 'cors',
-      headers: API_HEADERS,
-    })
-    if (!r.ok) throw new Error('django_feed')
-    return r.json()
+    const data = await apiFetchJson(
+      '/api/github/feed/',
+      {},
+      {
+        retries: 2,
+        fallback: null,
+      },
+    )
+    return data
   }
 
   const tryProxy = async () => {
@@ -44,7 +59,7 @@ export async function fetchLatestGitHubSignal() {
       },
     })
     if (!r.ok) throw new Error('proxy_feed')
-    const events = await r.json()
+    const events = await safeArrayResponse(r)
     const parsed = pickPushPayload(events)
     if (!parsed) throw new Error('no_push')
     return parsed
@@ -59,7 +74,7 @@ export async function fetchLatestGitHubSignal() {
       },
     })
     if (!r.ok) throw new Error('direct_feed')
-    const events = await r.json()
+    const events = await safeArrayResponse(r)
     const parsed = pickPushPayload(events)
     if (!parsed) throw new Error('no_push')
     return parsed

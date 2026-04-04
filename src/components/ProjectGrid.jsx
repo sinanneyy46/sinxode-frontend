@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useMemo, useState } from 'react'
 import { ProjectStackIcon } from '../lib/projectStackIcon'
-import { API_HEADERS, buildApiUrl } from '../utils/api'
+import { apiFetchJson } from '../utils/api'
 import ProjectModal from './ProjectModal'
 
 function statusClass(status) {
@@ -24,12 +24,15 @@ export default function ProjectGrid({ projects, previewCount = null, emptyHint }
     const ac = new AbortController()
     setLoading(true)
 
-    fetch(buildApiUrl('/api/projects/'), {
-      signal: ac.signal,
-      mode: 'cors',
-      headers: API_HEADERS,
-    })
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`status_${r.status}`))))
+    apiFetchJson(
+      '/api/projects/',
+      {
+        signal: ac.signal,
+      },
+      {
+        retries: 2,
+      },
+    )
       .then((raw) => {
         if (ac.signal.aborted) return
         const arr = Array.isArray(raw) ? raw : raw?.results ?? []

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { API_HEADERS, buildApiUrl } from '../utils/api'
+import { SYSTEM_OFFLINE_FALLBACK, apiFetchJson } from '../utils/api'
 
 const fallback = {
   uptime: '—',
@@ -16,20 +16,24 @@ export default function OsStatusStrip() {
     let cancelled = false
 
     const pull = () => {
-      fetch(buildApiUrl('/api/system/status/'), {
-        mode: 'cors',
-        headers: API_HEADERS,
-      })
-        .then((r) => (r.ok ? r.json() : Promise.reject()))
+      apiFetchJson(
+        '/api/system/status/',
+        {},
+        {
+          retries: 2,
+          fallback: SYSTEM_OFFLINE_FALLBACK,
+        },
+      )
         .then((json) => {
           if (cancelled) return
+          const offline = json?.availability_status === 'SYSTEM_OFFLINE'
           setData({
             uptime: json.uptime ?? fallback.uptime,
             local_time_kerala: json.local_time_kerala ?? json.local_time ?? '',
             current_status: json.current_status ?? json.availability_status ?? fallback.current_status,
             availability_status: json.availability_status ?? fallback.availability_status,
           })
-          setErr(false)
+          setErr(offline)
         })
         .catch(() => {
           if (!cancelled) setErr(true)
@@ -65,7 +69,7 @@ export default function OsStatusStrip() {
       <div className="os-status-strip__row">
         <span className="os-status-strip__k">Sys</span>
         <span className={`os-status-strip__v${err ? ' os-status-strip__v--dim' : ''}`}>
-          {err ? 'NO_HANDSHAKE' : data.availability_status}
+          {data.availability_status}
         </span>
       </div>
       <div className="os-status-strip__row">
