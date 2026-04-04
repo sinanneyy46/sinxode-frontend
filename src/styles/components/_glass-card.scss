@@ -1,0 +1,25 @@
+@use '../mixins' as *;
+
+.glass-card {
+  @include glass-panel;
+  position: relative;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid color-mix(in srgb, var(--sx-neon-a) 38%, transparent);
+    pointer-events: none;
+    clip-path: inherit;
+  }
+}
+
+.glass-card--glow {
+  @include neon-glow-var(0.85, 'a');
+  transition: box-shadow 0.35s ease, border-color 0.35s ease;
+
+  &:hover {
+    @include neon-glow-var(1.05, 'b');
+  }
+}

@@ -1,0 +1,94 @@
+.theme-toggle {
+  position: fixed;
+  top: 44px;
+  right: 1rem;
+  z-index: 9200;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.theme-toggle__label {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sx-muted);
+}
+
+.theme-toggle__track {
+  position: relative;
+  width: 168px;
+  height: 36px;
+  padding: 3px;
+  border: 1px solid color-mix(in srgb, var(--sx-neon-a) 35%, transparent);
+  background: color-mix(in srgb, var(--sx-glass) 100%, transparent);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  box-shadow:
+    inset 0 0 16px color-mix(in srgb, var(--sx-neon-a) 6%, transparent),
+    0 0 20px color-mix(in srgb, var(--sx-neon-b) 10%, transparent);
+}
+
+.theme-toggle__inputs {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.theme-toggle__slider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  height: calc(100% - 6px);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--sx-neon-a) 90%, transparent),
+    color-mix(in srgb, var(--sx-neon-b) 75%, transparent)
+  );
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--sx-neon-a) 35%, transparent);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.theme-toggle__track[data-mode='retro'] .theme-toggle__slider {
+  transform: translateX(100%);
+}
+
+.theme-toggle__options {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+}
+
+.theme-toggle__opt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sx-font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sx-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--sx-neon-a);
+    outline: none;
+  }
+
+  &--active {
+    color: var(--sx-bg);
+    text-shadow: 0 0 8px color-mix(in srgb, var(--sx-neon-a) 40%, transparent);
+  }
+}
+
+[data-theme='retro'] .theme-toggle__opt--active {
+  color: var(--sx-bg);
+}

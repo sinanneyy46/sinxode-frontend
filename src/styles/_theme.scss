@@ -1,0 +1,19 @@
+// Runtime theme tokens (CSS custom properties). Switched via [data-theme] on <html>.
+
+:root,
+[data-theme='neon'] {
+  --sx-bg: #050505;
+  --sx-text: #e8f4ff;
+  --sx-muted: rgba(232, 244, 255, 0.55);
+  --sx-neon-a: #00f3ff;
+  --sx-neon-b: #7000ff;
+  --sx-accent-x: #ff2bd6;
+  --sx-glass: rgba(12, 14, 18, 0.72);
+  --sx-border: rgba(0, 243, 255, 0.12);
+  --sx-font-mono: 'IBM Plex Mono', 'SF Mono', ui-monospace, monospace;
+  --sx-font-display: 'Space Grotesk', system-ui, sans-serif;
+  --sx-scan-beam: rgba(0, 243, 255, 0.04);
+  --sx-grid-line: rgba(0, 243, 255, 0.04);
+  --sx-crt-vignette: transparent;
+  --sx-github-glow: #7000ff;
+}

@@ -1,0 +1,92 @@
+.tech-radar {
+  max-width: 420px;
+  margin: 2rem auto 0;
+  padding: 1.25rem 1rem 1.5rem;
+}
+
+.tech-radar__chrome {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--sx-neon-a) 35%, transparent);
+  background: color-mix(in srgb, var(--sx-bg) 94%, transparent);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  box-shadow:
+    0 0 20px color-mix(in srgb, var(--sx-neon-a) 12%, transparent),
+    inset 0 0 40px color-mix(in srgb, var(--sx-neon-b) 6%, transparent);
+}
+
+.tech-radar__title {
+  padding: 0.55rem 0.85rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--sx-muted);
+  border-bottom: 1px solid color-mix(in srgb, var(--sx-neon-a) 15%, transparent);
+}
+
+.tech-radar__svg-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0.75rem 1.25rem;
+}
+
+.tech-radar__svg {
+  width: min(280px, 80vw);
+  height: min(280px, 80vw);
+  filter: drop-shadow(0 0 12px color-mix(in srgb, var(--sx-neon-a) 25%, transparent));
+}
+
+.tech-radar__ring {
+  fill: none;
+  stroke: color-mix(in srgb, var(--sx-neon-a) 22%, transparent);
+  stroke-width: 1;
+}
+
+.tech-radar__ring--major {
+  stroke: color-mix(in srgb, var(--sx-neon-a) 38%, transparent);
+  stroke-width: 1.25;
+}
+
+.tech-radar__axis {
+  fill: none;
+  stroke: color-mix(in srgb, var(--sx-neon-a) 28%, transparent);
+  stroke-width: 1;
+}
+
+.tech-radar__axis--major {
+  stroke: color-mix(in srgb, var(--sx-neon-a) 42%, transparent);
+  stroke-width: 1.25;
+}
+
+.tech-radar__beam {
+  transform-origin: 100px 100px;
+  animation: sinxode-radar-sweep 6s linear infinite;
+}
+
+.tech-radar__beam-shape {
+  fill: url(#sinxode-radar-beam-grad);
+  opacity: 0.55;
+}
+
+.tech-radar__blip {
+  transition: r 0.12s ease, filter 0.12s ease;
+}
+
+.tech-radar__blip--hit {
+  filter: drop-shadow(0 0 10px var(--sx-neon-a));
+}
+
+.tech-radar__blip-label {
+  font-family: var(--sx-font-mono);
+  font-size: 5.5px;
+  fill: var(--sx-muted);
+  text-anchor: middle;
+}
+
+@keyframes sinxode-radar-sweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

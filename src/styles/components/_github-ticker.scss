@@ -1,0 +1,76 @@
+.github-ticker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9100;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-bottom: 1px solid color-mix(in srgb, var(--sx-github-glow) 35%, transparent);
+  background: color-mix(in srgb, var(--sx-bg) 88%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--sx-github-glow) 15%, transparent);
+}
+
+.github-ticker__label {
+  flex-shrink: 0;
+  padding: 0 0.85rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sx-muted);
+  border-right: 1px solid color-mix(in srgb, var(--sx-github-glow) 25%, transparent);
+}
+
+.github-ticker__track {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  mask-image: linear-gradient(90deg, transparent, black 4%, black 96%, transparent);
+}
+
+.github-ticker__marquee {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  padding-left: 100%;
+  white-space: nowrap;
+  font-family: var(--sx-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--sx-text);
+  text-shadow:
+    0 0 8px color-mix(in srgb, var(--sx-github-glow) 55%, transparent),
+    0 0 22px color-mix(in srgb, var(--sx-github-glow) 28%, transparent);
+  animation: sinxode-ticker-scroll 28s linear infinite;
+}
+
+.github-ticker__marquee--paused {
+  animation-play-state: paused;
+}
+
+.github-ticker__sep {
+  color: color-mix(in srgb, var(--sx-github-glow) 80%, transparent);
+}
+
+.github-ticker__err {
+  padding: 0 1rem;
+  font-family: var(--sx-font-mono);
+  font-size: 0.68rem;
+  color: var(--sx-muted);
+}
+
+@keyframes sinxode-ticker-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

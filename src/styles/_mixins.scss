@@ -1,0 +1,36 @@
+@use 'sass:color';
+@use 'variables' as *;
+
+/// Theme-aware glow using CSS variables (--sx-neon-a / --sx-neon-b)
+@mixin neon-glow-var($intensity: 1, $which: 'a') {
+  $i: $intensity;
+  $c: var(--sx-neon-a);
+  @if $which == 'b' {
+    $c: var(--sx-neon-b);
+  }
+  box-shadow:
+    0 0 #{4px * $i} color-mix(in srgb, $c 88%, transparent),
+    0 0 #{16px * $i} color-mix(in srgb, $c 32%, transparent),
+    0 0 #{42px * $i} color-mix(in srgb, $c 16%, transparent),
+    inset 0 0 #{12px * $i} color-mix(in srgb, $c 8%, transparent);
+}
+
+@mixin glass-panel {
+  background: var(--sx-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--sx-border);
+}
+
+/// Legacy fixed-color glow (non-theme); kept for rare use
+@mixin neon-glow($color, $intensity: 1) {
+  $i: $intensity;
+  $soft: color.change($color, $alpha: 0.45);
+  $mid: color.change($color, $alpha: 0.28);
+  $core: color.change($color, $alpha: 0.85);
+  box-shadow:
+    0 0 #{4px * $i} $core,
+    0 0 #{16px * $i} $mid,
+    0 0 #{40px * $i} $soft,
+    inset 0 0 #{12px * $i} color.change($color, $alpha: 0.06);
+}

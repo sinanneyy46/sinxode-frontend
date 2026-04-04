@@ -1,0 +1,56 @@
+@use '../mixins' as *;
+
+.dock {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9500;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.55rem 0.65rem;
+  @include glass-panel;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid color-mix(in srgb, var(--sx-neon-a) 35%, transparent);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  box-shadow:
+    0 0 20px color-mix(in srgb, var(--sx-neon-a) 12%, transparent),
+    0 0 48px color-mix(in srgb, var(--sx-neon-b) 8%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.dock__link {
+  position: relative;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sx-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    color: var(--sx-neon-a);
+    border-color: color-mix(in srgb, var(--sx-neon-a) 35%, transparent);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--sx-neon-a) 15%, transparent);
+    animation: sinxode-border-pulse 2.5s ease-in-out infinite;
+  }
+
+  &--active {
+    color: var(--sx-bg);
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--sx-neon-a) 95%, transparent),
+      color-mix(in srgb, var(--sx-neon-b) 75%, transparent)
+    );
+    border-color: color-mix(in srgb, var(--sx-neon-a) 50%, transparent);
+    box-shadow: 0 0 24px color-mix(in srgb, var(--sx-neon-a) 35%, transparent);
+  }
+}

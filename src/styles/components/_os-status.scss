@@ -1,0 +1,45 @@
+.os-status-strip {
+  position: fixed;
+  right: 1rem;
+  bottom: 1.25rem;
+  z-index: 9350;
+  max-width: min(22rem, calc(100vw - 2rem));
+  padding: 0.5rem 0.75rem;
+  font-family: var(--sx-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  line-height: 1.45;
+  color: var(--sx-text);
+  border: 1px solid color-mix(in srgb, var(--sx-neon-a) 32%, transparent);
+  background: color-mix(in srgb, var(--sx-glass) 100%, transparent);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 0 18px color-mix(in srgb, var(--sx-neon-a) 18%, transparent),
+    inset 0 0 14px color-mix(in srgb, var(--sx-neon-a) 5%, transparent);
+}
+
+.os-status-strip__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.65rem;
+  align-items: baseline;
+}
+
+.os-status-strip__k {
+  color: var(--sx-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.55rem;
+}
+
+.os-status-strip__v {
+  color: color-mix(in srgb, var(--sx-neon-a) 92%, transparent);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--sx-neon-a) 28%, transparent);
+}
+
+.os-status-strip__v--dim {
+  color: var(--sx-muted);
+  text-shadow: none;
+}

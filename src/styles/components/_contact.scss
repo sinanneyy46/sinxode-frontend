@@ -1,0 +1,150 @@
+@use '../mixins' as *;
+
+.contact-ping {
+  position: fixed;
+  left: 1rem;
+  bottom: 1.25rem;
+  z-index: 9400;
+  width: min(22rem, calc(100vw - 2rem));
+}
+
+.contact-ping__panel {
+  @include glass-panel;
+  padding: 1rem 1.1rem 1.15rem;
+  border: 1px solid color-mix(in srgb, var(--sx-neon-a) 55%, transparent);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  box-shadow:
+    0 0 24px color-mix(in srgb, var(--sx-neon-a) 22%, transparent),
+    0 0 64px color-mix(in srgb, var(--sx-neon-b) 12%, transparent),
+    inset 0 0 20px color-mix(in srgb, var(--sx-neon-a) 6%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.contact-ping__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--sx-neon-a) 18%, transparent);
+}
+
+.contact-ping__label {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--sx-muted);
+}
+
+.contact-ping__matrix {
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  color: color-mix(in srgb, var(--sx-neon-a) 75%, transparent);
+}
+
+.contact-ping__init {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--sx-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sx-bg);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--sx-neon-a) 92%, transparent),
+    color-mix(in srgb, var(--sx-neon-b) 78%, transparent)
+  );
+  border: 1px solid color-mix(in srgb, var(--sx-neon-a) 45%, transparent);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
+
+  &:hover {
+    box-shadow: 0 0 28px color-mix(in srgb, var(--sx-neon-a) 35%, transparent);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: wait;
+  }
+}
+
+.contact-ping__init--hidden {
+  display: none;
+}
+
+.contact-ping__intel {
+  display: none;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.contact-ping__intel--visible {
+  display: flex;
+}
+
+.contact-ping__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sx-text);
+  border: 1px solid color-mix(in srgb, var(--sx-neon-a) 22%, transparent);
+  background: color-mix(in srgb, var(--sx-glass) 100%, transparent);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--sx-neon-a) 65%, transparent);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--sx-neon-a) 22%, transparent);
+    color: var(--sx-neon-a);
+  }
+}
+
+.contact-ping__link-kbd {
+  font-size: 0.58rem;
+  color: var(--sx-muted);
+  letter-spacing: 0.06em;
+}
+
+.contact-ping--glitch .contact-ping__panel {
+  animation: sinxode-contact-glitch 0.55s steps(2, end);
+}
+
+@keyframes sinxode-contact-glitch {
+  0% {
+    transform: translate(0, 0);
+    filter: hue-rotate(0deg);
+  }
+  20% {
+    transform: translate(-3px, 2px);
+    filter: hue-rotate(40deg);
+  }
+  40% {
+    transform: translate(4px, -1px);
+    filter: hue-rotate(-25deg);
+  }
+  60% {
+    transform: translate(-2px, -2px);
+  }
+  100% {
+    transform: translate(0, 0);
+    filter: hue-rotate(0deg);
+  }
+}

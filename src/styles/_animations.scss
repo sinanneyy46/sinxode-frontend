@@ -1,0 +1,35 @@
+@keyframes sinxode-scanline {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0.04;
+  }
+  50% {
+    opacity: 0.09;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0.04;
+  }
+}
+
+@keyframes sinxode-pulse-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--sx-neon-a) 40%, transparent));
+  }
+  50% {
+    filter: drop-shadow(0 0 14px color-mix(in srgb, var(--sx-neon-a) 72%, transparent));
+  }
+}
+
+@keyframes sinxode-border-pulse {
+  0%,
+  100% {
+    border-color: color-mix(in srgb, var(--sx-neon-a) 45%, transparent);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--sx-neon-a) 18%, transparent);
+  }
+  50% {
+    border-color: color-mix(in srgb, var(--sx-neon-a) 92%, transparent);
+    box-shadow: 0 0 24px color-mix(in srgb, var(--sx-neon-a) 32%, transparent);
+  }
+}
