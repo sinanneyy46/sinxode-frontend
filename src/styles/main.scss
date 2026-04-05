@@ -81,3 +81,10 @@ button {
     animation: sinxode-scanline 10s linear infinite;
   }
 }
+
+.sinxode-project-modal-open .sinxode-app > * {
+  filter: blur(7px) saturate(0.82);
+  pointer-events: none;
+  user-select: none;
+  transition: filter 0.24s ease;
+}

@@ -19,6 +19,7 @@
   background-size: 48px 48px;
   mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 75%);
   pointer-events: none;
+  animation: sinxode-grid-drift 18s linear infinite;
 }
 
 .terminal-hero__wave {
@@ -30,6 +31,7 @@
   width: 100%;
   opacity: 0.85;
   pointer-events: none;
+  animation: sinxode-wave-breathe 5.6s ease-in-out infinite;
 }
 
 .terminal-hero__title {
@@ -101,9 +103,29 @@
 }
 
 .home-section {
+  position: relative;
   padding: 2rem 1.5rem 10rem;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.home-section::before {
+  content: '';
+  position: absolute;
+  left: 1.5rem;
+  right: 1.5rem;
+  top: 0.6rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--sx-neon-a) 32%, transparent) 35%,
+    color-mix(in srgb, var(--sx-neon-b) 26%, transparent) 65%,
+    transparent
+  );
+  opacity: 0.45;
+  animation: sinxode-section-scan 4.8s linear infinite;
+  pointer-events: none;
 }
 
 .home-section__head {

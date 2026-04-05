@@ -7,6 +7,7 @@
   height: 36px;
   display: flex;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
   border-bottom: 1px solid color-mix(in srgb, var(--sx-github-glow) 35%, transparent);
   background: color-mix(in srgb, var(--sx-bg) 88%, transparent);
@@ -23,6 +24,25 @@
   text-transform: uppercase;
   color: var(--sx-muted);
   border-right: 1px solid color-mix(in srgb, var(--sx-github-glow) 25%, transparent);
+}
+
+.github-ticker__label-wrap {
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.github-ticker__clock {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.7rem;
+  font-family: var(--sx-font-mono);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: color-mix(in srgb, var(--sx-neon-a) 88%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--sx-github-glow) 18%, transparent);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--sx-github-glow) 35%, transparent);
 }
 
 .github-ticker__track {
@@ -70,6 +90,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }

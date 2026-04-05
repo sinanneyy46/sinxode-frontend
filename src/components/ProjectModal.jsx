@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
 import { ProjectStackIcon } from '../lib/projectStackIcon'
 
@@ -7,18 +8,20 @@ export default function ProjectModal({ project, onClose }) {
   useEffect(() => {
     if (!project) return undefined
     const prev = document.body.style.overflow
+    document.documentElement.classList.add('sinxode-project-modal-open')
     document.body.style.overflow = 'hidden'
     const onKey = (e) => {
       if (e.key === 'Escape') onClose()
     }
     window.addEventListener('keydown', onKey)
     return () => {
+      document.documentElement.classList.remove('sinxode-project-modal-open')
       document.body.style.overflow = prev
       window.removeEventListener('keydown', onKey)
     }
   }, [project, onClose])
 
-  return (
+  const modalTree = (
     <AnimatePresence>
       {project ? (
         <motion.div
@@ -122,4 +125,7 @@ export default function ProjectModal({ project, onClose }) {
       ) : null}
     </AnimatePresence>
   )
+
+  if (typeof document === 'undefined') return modalTree
+  return createPortal(modalTree, document.body)
 }

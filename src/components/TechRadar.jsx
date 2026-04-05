@@ -30,9 +30,14 @@ export default function TechRadar() {
         <div className="tech-radar__svg-wrap">
           <svg className="tech-radar__svg" viewBox="0 0 200 200" aria-hidden>
             <defs>
-              <linearGradient id="sinxode-radar-beam-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="var(--sx-neon-a)" stopOpacity="0" />
-                <stop offset="100%" stopColor="var(--sx-neon-a)" stopOpacity="0.65" />
+              <radialGradient id="sinxode-radar-beam-grad" cx="100" cy="100" r="92" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="var(--sx-neon-a)" stopOpacity="0.35" />
+                <stop offset="50%" stopColor="var(--sx-neon-a)" stopOpacity="0.18" />
+                <stop offset="100%" stopColor="var(--sx-neon-a)" stopOpacity="0.02" />
+              </radialGradient>
+              <linearGradient id="sinxode-radar-core-grad" x1="100" y1="100" x2="186" y2="100" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="var(--sx-neon-a)" stopOpacity="0.2" />
+                <stop offset="100%" stopColor="var(--sx-neon-a)" stopOpacity="0.95" />
               </linearGradient>
             </defs>
             {[28, 52, 76].map((r, i) => (
@@ -49,8 +54,9 @@ export default function TechRadar() {
             <g className="tech-radar__beam">
               <path
                 className="tech-radar__beam-shape"
-                d={`M ${CX} ${CY} L 200 ${CY} A 100 100 0 0 0 ${CX + 28} ${CY - 18} Z`}
+                d={`M ${CX} ${CY} L 178 88 A 84 84 0 0 1 178 112 Z`}
               />
+              <path className="tech-radar__beam-core" d={`M ${CX} ${CY} L 184 ${CY}`} />
             </g>
             {RADAR_BLIPS.map((b) => {
               const p = polarToSvg(CX, CY, R, b.angleDeg)

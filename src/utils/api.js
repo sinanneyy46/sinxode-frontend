@@ -1,11 +1,46 @@
 const FALLBACK_API_URL = 'https://sinxode-backend.onrender.com'
+const LOCAL_DEV_API_URL = ''
 const RETRYABLE_STATUS = new Set([502, 504])
 const DEFAULT_RETRIES = 2
 const DEFAULT_RETRY_DELAY_MS = 500
 
+const isViteDev = typeof import.meta !== 'undefined' ? Boolean(import.meta?.env?.DEV) : false
+const isLocalRuntimeHost =
+  typeof window !== 'undefined' && /^(localhost|127\.0\.0\.1)$/i.test(window.location.hostname)
 const viteApiUrl = typeof import.meta !== 'undefined' ? import.meta?.env?.VITE_API_URL : ''
+const viteApiUrlDev = typeof import.meta !== 'undefined' ? import.meta?.env?.VITE_API_URL_DEV : ''
+const useProdApiInDev =
+  typeof import.meta !== 'undefined' ? String(import.meta?.env?.VITE_USE_PROD_API_IN_DEV || '') === 'true' : false
 const craApiUrl = typeof process !== 'undefined' ? process?.env?.REACT_APP_API_URL : ''
-const rawBaseUrl = viteApiUrl || craApiUrl || FALLBACK_API_URL
+
+function normalizeDevApiUrl(url) {
+  const value = String(url || '').trim()
+  if (!value) return value
+  if (value.startsWith('https://localhost')) return value.replace('https://localhost', 'http://localhost')
+  if (value.startsWith('https://127.0.0.1')) return value.replace('https://127.0.0.1', 'http://127.0.0.1')
+  return value
+}
+
+function isRemoteAbsoluteUrl(url) {
+  return /^https?:\/\//i.test(url) && !/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?/i.test(url)
+}
+
+function resolveBaseUrl() {
+  const localMode = isViteDev || isLocalRuntimeHost
+  if (!localMode) {
+    return String(viteApiUrl || craApiUrl || FALLBACK_API_URL).trim()
+  }
+
+  const devCandidate = normalizeDevApiUrl(viteApiUrlDev || '')
+  if (devCandidate) return devCandidate
+
+  const defaultCandidate = normalizeDevApiUrl(viteApiUrl || craApiUrl || '')
+  if (!defaultCandidate) return LOCAL_DEV_API_URL
+  if (useProdApiInDev || !isRemoteAbsoluteUrl(defaultCandidate)) return defaultCandidate
+  return LOCAL_DEV_API_URL
+}
+
+const rawBaseUrl = resolveBaseUrl()
 
 export const BASE_URL = String(rawBaseUrl).replace(/\/+$/, '')
 
@@ -22,7 +57,7 @@ export const SYSTEM_OFFLINE_FALLBACK = Object.freeze({
 
 export function buildApiUrl(path) {
   const normalizedPath = String(path || '').startsWith('/') ? path : `/${path || ''}`
-  return `${BASE_URL}${normalizedPath}`
+  return BASE_URL ? `${BASE_URL}${normalizedPath}` : normalizedPath
 }
 
 function delay(ms) {

@@ -48,9 +48,9 @@ export default function TerminalHero() {
       >
         <defs>
           <linearGradient id="sinxode-wave-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#7000ff" stopOpacity="0.2" />
-            <stop offset="40%" stopColor="#00f3ff" stopOpacity="0.85" />
-            <stop offset="100%" stopColor="#ff2bd6" stopOpacity="0.35" />
+            <stop offset="0%" stopColor="var(--sx-wave-1)" stopOpacity="0.2" />
+            <stop offset="40%" stopColor="var(--sx-wave-2)" stopOpacity="0.85" />
+            <stop offset="100%" stopColor="var(--sx-wave-3)" stopOpacity="0.35" />
           </linearGradient>
         </defs>
         <path
@@ -60,13 +60,13 @@ export default function TerminalHero() {
           strokeWidth="3.5"
           strokeLinecap="square"
           style={{
-            filter: `drop-shadow(0 0 ${8 + scrollDepth * 18}px rgba(0, 243, 255, 0.55))`,
+            filter: `drop-shadow(0 0 ${8 + scrollDepth * 18}px var(--sx-wave-glow))`,
           }}
         />
         <path
           d={wave.path}
           fill="none"
-          stroke="rgba(0, 243, 255, 0.12)"
+          stroke="var(--sx-wave-underlay)"
           strokeWidth="10"
           strokeLinecap="square"
         />
@@ -84,7 +84,7 @@ export default function TerminalHero() {
       <div className="terminal-hero__meta">
         <span className="terminal-hero__chip">Portfolio v0.1</span>
         <span className="terminal-hero__chip">Scroll ∿ Waveform</span>
-        <span className="terminal-hero__chip">Ctrl+K Command</span>
+        <span className="terminal-hero__chip">Ctrl+K / CMD</span>
       </div>
     </header>
   )

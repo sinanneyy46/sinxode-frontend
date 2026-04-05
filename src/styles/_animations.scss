@@ -33,3 +33,33 @@
     box-shadow: 0 0 24px color-mix(in srgb, var(--sx-neon-a) 32%, transparent);
   }
 }
+
+@keyframes sinxode-grid-drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(48px, 48px, 0);
+  }
+}
+
+@keyframes sinxode-wave-breathe {
+  0%,
+  100% {
+    opacity: 0.76;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.98;
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes sinxode-section-scan {
+  0% {
+    transform: translateX(-12%);
+  }
+  100% {
+    transform: translateX(12%);
+  }
+}

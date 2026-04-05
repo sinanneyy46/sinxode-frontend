@@ -64,7 +64,15 @@
 
 .tech-radar__beam-shape {
   fill: url(#sinxode-radar-beam-grad);
-  opacity: 0.55;
+  opacity: 1.85;
+}
+
+.tech-radar__beam-core {
+  fill: none;
+  stroke: url(#sinxode-radar-core-grad);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 9px color-mix(in srgb, var(--sx-neon-a) 45%, transparent));
 }
 
 .tech-radar__blip {
@@ -86,6 +94,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

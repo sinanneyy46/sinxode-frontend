@@ -18,6 +18,18 @@
   box-shadow:
     0 0 18px color-mix(in srgb, var(--sx-neon-a) 18%, transparent),
     inset 0 0 14px color-mix(in srgb, var(--sx-neon-a) 5%, transparent);
+
+  @media (max-width: 900px) {
+    bottom: calc(5.85rem + env(safe-area-inset-bottom));
+    right: 0.625rem;
+    max-width: min(22rem, calc(100vw - 1.25rem));
+  }
+
+  @media (max-width: 560px) {
+    left: 0.625rem;
+    right: 0.625rem;
+    max-width: none;
+  }
 }
 
 .os-status-strip__row {
